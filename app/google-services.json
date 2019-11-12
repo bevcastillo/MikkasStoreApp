@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "441694339950",
+    "firebase_url": "https://mikkasstore.firebaseio.com",
+    "project_id": "mikkasstore",
+    "storage_bucket": "mikkasstore.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441694339950:android:9a51620ebd33c24494b77f",
+        "android_client_info": {
+          "package_name": "com.example.mikkasstoreapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441694339950-4s405ne8tj6vlauiork3rd9m1dv0fc28.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mikkasstoreapp",
+            "certificate_hash": "d29b713ff219ed2cf70deb8a986716577672a83b"
+          }
+        },
+        {
+          "client_id": "441694339950-1n07ae1srl57lqb5r9ep16fk0eagod62.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARIwe1qjs5YMkKX2jLcn8xV6seyUmgtak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441694339950-1n07ae1srl57lqb5r9ep16fk0eagod62.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
