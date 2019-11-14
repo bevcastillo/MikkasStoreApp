@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     DatabaseReference databaseReference;
     EditText userLname, userfname, userUsername, userPassw;
     Button btnGetStarted;
+    TextView txtSignUp;
 
     String storeId;
 
@@ -33,8 +35,16 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         userPassw = findViewById(R.id.edit_user_password);
         btnGetStarted = findViewById(R.id.btn_user_get_started);
 
+        txtSignUp = findViewById(R.id.text_sign_in);
 
         btnGetStarted.setOnClickListener(this);
+        txtSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("store_data");
@@ -49,6 +59,8 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.btn_user_get_started:
                 if (validate_fields()){
                     user_register();
+                }else {
+                    Toast.makeText(this, "We have encountered an error.", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

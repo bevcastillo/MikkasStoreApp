@@ -9,10 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AddItemActivity"
+            android:label="Add an Item"
+            android:parentActivityName=".ItemlistActivity"></activity>
+        <activity android:name=".ItemlistActivity"
+            android:label="All Merchandise"/>
         <activity android:name=".EmployeeList2Activity" />
-        <activity android:name=".AllMenuActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".AllMenuActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".SignupActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
