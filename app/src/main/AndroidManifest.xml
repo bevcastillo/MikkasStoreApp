@@ -9,12 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddItemActivity"
+        <activity android:name=".AllPurchasesActivity"></activity>
+        <activity
+            android:name=".AddItemActivity"
             android:label="Add an Item"
-            android:parentActivityName=".ItemlistActivity"></activity>
-        <activity android:name=".ItemlistActivity"
-            android:label="All Merchandise"/>
-        <activity android:name=".EmployeeList2Activity" />
+            android:parentActivityName=".ItemlistActivity" />
+        <activity
+            android:name=".ItemlistActivity"
+            android:label="All Merchandise" />
+        <activity
+            android:name=".EmployeeList2Activity"
+            android:label="All Employees" />
         <activity
             android:name=".AllMenuActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

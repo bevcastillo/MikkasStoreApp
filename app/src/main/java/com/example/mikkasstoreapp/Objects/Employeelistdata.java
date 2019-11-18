@@ -1,14 +1,8 @@
 package com.example.mikkasstoreapp.Objects;
 
-public class Employee {
+public class Employeelistdata {
+
     private String emp_name;
-
-    public Employee() {
-    }
-
-    public Employee(String emp_name) {
-        this.emp_name = emp_name;
-    }
 
     public String getEmp_name() {
         return emp_name;

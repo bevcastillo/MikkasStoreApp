@@ -1,21 +1,43 @@
 package com.example.mikkasstoreapp;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mikkasstoreapp.Adapters.EmployeelistAdapter;
+import com.example.mikkasstoreapp.Objects.Employee;
+import com.example.mikkasstoreapp.Objects.Employeelistdata;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeList2Activity extends AppCompatActivity implements View.OnClickListener {
 
     RecyclerView recyclerEmpList;
     FloatingActionButton fab_add;
+    String employeeId;
+
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
+
+    List<Employeelistdata> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +48,47 @@ public class EmployeeList2Activity extends AppCompatActivity implements View.OnC
         fab_add = findViewById(R.id.fab_add_emp);
 
         fab_add.setOnClickListener(this);
+
+        //
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("/store_data");
+        employeeId = databaseReference.push().getKey();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        display_all_emp();
+    }
+
+    private void display_all_emp() {
+        databaseReference.child("employee")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        list = new ArrayList<>();
+                        for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                            Employee employee = dataSnapshot1.getValue(Employee.class);
+                            Employeelistdata employeelistdata = new Employeelistdata();
+                            String emp_name = employee.getEmp_name();
+                            employeelistdata.setEmp_name(emp_name);
+                            list.add(employeelistdata);
+                        }
+                        EmployeelistAdapter adapter = new EmployeelistAdapter(getApplicationContext(), list);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                        recyclerEmpList.setLayoutManager(layoutManager);
+                        recyclerEmpList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, true));
+                        recyclerEmpList.setItemAnimator(new DefaultItemAnimator());
+                        recyclerEmpList.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     @Override
@@ -51,6 +114,11 @@ public class EmployeeList2Activity extends AppCompatActivity implements View.OnC
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //saving to firebase database
+                add_employee(textEmpName.getText().toString());
+                Toast.makeText(EmployeeList2Activity.this, "New employee has been added.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EmployeeList2Activity.this, textEmpName.getText().toString()+" is the name of the name from the dialog", Toast.LENGTH_SHORT).show();
+//                finish();
+
             }
         });
 
@@ -63,5 +131,34 @@ public class EmployeeList2Activity extends AppCompatActivity implements View.OnC
 
         AlertDialog build = dialogbuilder.create();
         build.show();
+    }
+
+
+    private void add_employee(final String emp_name) {
+        final Employee employee = new Employee(emp_name);
+
+        SharedPreferences userPref = getApplicationContext().getSharedPreferences("UserPref", MODE_PRIVATE);
+        final String username = (userPref.getString("user_username",""));
+
+        employee.setEmp_name(emp_name);
+
+        databaseReference.child("users")
+                .orderByChild("username")
+                .equalTo(username).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                        databaseReference.child("employee").child(employeeId).setValue(employee);
+                        Toast.makeText(EmployeeList2Activity.this, emp_name+" is the name of the added employee", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

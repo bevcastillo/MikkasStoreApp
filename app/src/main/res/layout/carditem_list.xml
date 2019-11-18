@@ -3,45 +3,41 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="5dp">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_emplist"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="4dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+    android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="15dp">
+            android:padding="15dp"
+            android:gravity="center">
 
-            <TextView
-                android:id="@+id/card_item_name"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Item Name"
-                android:textColor="@color/colorDarkText"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif"
-                android:textSize="18dp"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/card_item_qty"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="99"
-                android:textColor="@color/colorDarkText"
-                android:gravity="center"
-                android:fontFamily="sans-serif"/>
+                <TextView
+                    android:id="@+id/card_item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Name"
+                    android:textColor="@color/colorDarkText"
+                    android:fontFamily="sans-serif"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/card_item_qty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="99"
+                    android:textColor="#808080"
+                    android:fontFamily="sans-serif"/>
+
+            </LinearLayout>
+
+
 
             <TextView
                 android:id="@+id/card_item_price"
@@ -56,6 +52,11 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            style="@style/Divider"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
 
 </LinearLayout>

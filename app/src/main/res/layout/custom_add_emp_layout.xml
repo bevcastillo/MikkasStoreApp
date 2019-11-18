@@ -3,10 +3,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhiteBG"
     android:paddingRight="30dp"
     android:paddingLeft="30dp"
     android:paddingBottom="30dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:text="Add an employee"
+        android:textSize="20dp"
+        android:textColor="@color/colorDarkText"
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/edit_empnickname"
@@ -17,7 +25,7 @@
         android:paddingRight="20dp"
         android:paddingBottom="15dp"
         android:background="@drawable/custom_edit_text"
-        android:hint="Enter employee nickname"
+        android:hint="Enter name"
         android:layout_marginTop="30dp" />
 
 
@@ -33,6 +41,5 @@
             android:textColor="@color/colorWhiteBG"
             android:textSize="18dp"
             android:layout_marginTop="15dp"/>
-
 
 </LinearLayout>
