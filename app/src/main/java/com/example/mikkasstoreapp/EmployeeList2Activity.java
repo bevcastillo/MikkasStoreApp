@@ -116,7 +116,6 @@ public class EmployeeList2Activity extends AppCompatActivity implements View.OnC
                 //saving to firebase database
                 add_employee(textEmpName.getText().toString());
                 Toast.makeText(EmployeeList2Activity.this, "New employee has been added.", Toast.LENGTH_SHORT).show();
-                Toast.makeText(EmployeeList2Activity.this, textEmpName.getText().toString()+" is the name of the name from the dialog", Toast.LENGTH_SHORT).show();
 //                finish();
 
             }
@@ -149,8 +148,7 @@ public class EmployeeList2Activity extends AppCompatActivity implements View.OnC
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-                        databaseReference.child("employee").child(employeeId).setValue(employee);
-                        Toast.makeText(EmployeeList2Activity.this, emp_name+" is the name of the added employee", Toast.LENGTH_SHORT).show();
+                        databaseReference.child("employee").push().setValue(employee);
                     }
                 }
             }

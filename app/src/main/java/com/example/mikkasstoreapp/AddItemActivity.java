@@ -62,8 +62,8 @@ public class AddItemActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    private void add_items(String item_name, String item_category, double item_price, int item_qty){
-        final Items items = new Items(item_name, item_category, item_price, item_qty);
+    private void add_items(String item_name, String item_category, double item_price, int item_stock){
+        final Items items = new Items(item_name, item_category, item_price, item_stock);
 
         SharedPreferences userPref = getApplicationContext().getSharedPreferences("UserPref", MODE_PRIVATE);
         final String username = (userPref.getString("user_username",""));
@@ -71,7 +71,7 @@ public class AddItemActivity extends AppCompatActivity implements View.OnClickLi
         items.setItem_name(item_name);
         items.setItem_category(strSelectedCategory);
         items.setItem_price(item_price);
-        items.setItem_qty(item_qty);
+        items.setItem_stock(item_stock);
 
         databaseReference.child("users")
                 .orderByChild("username")

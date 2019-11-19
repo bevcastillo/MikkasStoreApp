@@ -71,10 +71,10 @@ public class ItemlistActivity extends AppCompatActivity {
                             Items items = dataSnapshot1.getValue(Items.class);
                             Itemlistdata itemlistdata = new Itemlistdata();
                             String itemName = items.getItem_name();
-                            int itemQty = items.getItem_qty();
+                            int itemQty = items.getItem_stock();
                             double itemPrice = items.getItem_price();
                             itemlistdata.setItem_name(itemName);
-                            itemlistdata.setItem_qty(itemQty);
+                            itemlistdata.setItem_stock(itemQty);
                             itemlistdata.setItem_price(itemPrice);
                             list.add(itemlistdata);
                         }
