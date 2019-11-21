@@ -12,17 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mikkasstoreapp.Objects.Purchaselistdata;
-import com.example.mikkasstoreapp.PaymentDetailsActivity;
 import com.example.mikkasstoreapp.R;
+import com.example.mikkasstoreapp.ViewCompleteActivity;
 
 import java.util.List;
 
-public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ViewHolder> {
+public class CompletedPaymentAdapter extends RecyclerView.Adapter<CompletedPaymentAdapter.ViewHolder> {
 
     Context context;
     List<Purchaselistdata> list;
 
-    public PaymentsAdapter(Context context, List<Purchaselistdata> list) {
+    public CompletedPaymentAdapter(Context context, List<Purchaselistdata> list) {
         this.context = context;
         this.list = list;
     }
@@ -30,8 +30,9 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_payments, parent, false);
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_complete_payment, parent, false);
         final ViewHolder viewHolder = new ViewHolder(v);
 
         viewHolder.layout.setOnClickListener(new View.OnClickListener() {
@@ -40,13 +41,11 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ViewHo
                 String purchaserName = list.get(viewHolder.getAdapterPosition()).getPurchase_emp_name();
                 String purchaseStatus = list.get(viewHolder.getAdapterPosition()).getPurch_status();
                 double purchaseDue = list.get(viewHolder.getAdapterPosition()).getPurch_total_due();
-                int purchaseQty = list.get(viewHolder.getAdapterPosition()).getPurch_tot_qty();
 
-                Intent intent = new Intent(v.getContext(), PaymentDetailsActivity.class);
-                intent.putExtra("purchaser_name", purchaserName);
-                intent.putExtra("purchase_status", purchaseStatus);
-                intent.putExtra("purchase_due", purchaseDue);
-                intent.putExtra("purchase_qty", purchaseQty);
+                Intent intent = new Intent(v.getContext(), ViewCompleteActivity.class);
+                intent.putExtra("employee_name", purchaserName);
+                intent.putExtra("status", purchaseStatus);
+                intent.putExtra("due", purchaseDue);
                 v.getContext().startActivity(intent);
             }
         });
@@ -59,9 +58,10 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ViewHo
         Purchaselistdata data = list.get(position);
 
         holder.empName.setText(data.getPurchase_emp_name());
-        holder.purchaseStatus.setText(data.getPurch_status());
         holder.purchaseDue.setText("₱ "+data.getPurch_total_due());
+        holder.paymentStatus.setText(data.getPurch_status());
         holder.purchaseQty.setText(data.getPurch_tot_qty()+" items, Total: ");
+        holder.paymentDate.setText("Paid on: "+data.getPurch_payment_date());
 
     }
 
@@ -72,17 +72,20 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView empName, purchaseDue, purchaseStatus, purchaseQty;
+        TextView empName, purchaseQty, purchaseDue, paymentDate, paymentStatus, userName;
         LinearLayout layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            empName = (TextView) itemView.findViewById(R.id.purch_emp_name);
-            purchaseStatus = (TextView) itemView.findViewById(R.id.purchase_status);
-            purchaseDue = (TextView) itemView.findViewById(R.id.purch_item_due);
-            layout = (LinearLayout) itemView.findViewById(R.id.layout_purchlist);
+            empName = (TextView) itemView.findViewById(R.id.payment_purchaser);
+            paymentDate = (TextView) itemView.findViewById(R.id.payment_date);
             purchaseQty = (TextView) itemView.findViewById(R.id.purchItemDetails);
+            purchaseDue = (TextView) itemView.findViewById(R.id.purch_item_due);
+            paymentStatus = (TextView) itemView.findViewById(R.id.payment_status);
+            userName = (TextView) itemView.findViewById(R.id.payment_empname);
+            layout = (LinearLayout) itemView.findViewById(R.id.layout);
+
         }
     }
 }

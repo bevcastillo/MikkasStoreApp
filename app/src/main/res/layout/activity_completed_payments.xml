@@ -5,6 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CompletedPaymentsActivity">
+    tools:context=".CompletedPaymentsActivity"
+    android:background="@color/colorWhiteBG">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_completed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"/>
 
 </LinearLayout>

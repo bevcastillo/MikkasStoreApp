@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/layout_purchlist"
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -15,17 +15,27 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/purch_emp_name"
-                android:layout_width="wrap_content"
+                android:id="@+id/payment_purchaser"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mikka"
+                android:text="Bev"
                 android:textColor="@color/colorDarkText"
                 android:fontFamily="sans-serif"
-                android:textSize="20dp"/>
+                android:textSize="17dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/payment_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Paid on: 12/12/2019"
+                android:textColor="@color/colorDarkText"
+                android:fontFamily="sans-serif"/>
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -42,6 +52,7 @@
                     android:fontFamily="sans-serif"
                     android:gravity="center|right"/>
 
+
                 <TextView
                     android:id="@+id/purch_item_due"
                     android:layout_width="wrap_content"
@@ -56,32 +67,35 @@
 
             </LinearLayout>
 
-
-
         </LinearLayout>
-
-
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:gravity="center|right"
-            android:layout_gravity="center">
-
+            android:layout_weight="1.5"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <TextView
-                android:id="@+id/purchase_status"
-                android:layout_width="wrap_content"
+                android:id="@+id/payment_status"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pending"
-                android:textColor="#CB4335"
+                android:text="Completed"
+                android:textStyle="bold"
+                android:textColor="#196F3D"
                 android:fontFamily="sans-serif"
-                android:textStyle="italic"
                 android:textSize="16dp"
+                android:gravity="right"
                 android:paddingRight="5dp"/>
 
+            <TextView
+                android:id="@+id/payment_empname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Accepted by: Mikka"
+                android:textColor="#808080"
+                android:fontFamily="sans-serif"
+                android:gravity="right"/>
 
         </LinearLayout>
 

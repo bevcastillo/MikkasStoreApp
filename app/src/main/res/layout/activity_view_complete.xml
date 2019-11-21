@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".PaymentDetailsActivity"
+    tools:context=".ViewCompleteActivity"
     android:background="@color/colorWhiteBG">
 
     <ScrollView
@@ -28,17 +28,17 @@
                 android:padding="15dp">
 
                 <TextView
-                    android:id="@+id/summary_purchaser_name"
+                    android:id="@+id/comp_purchaser_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mikka's Purchase History"
+                    android:text="Mikka's Purchase Details"
                     android:fontFamily="sans-serif"
                     android:textSize="18dp"
                     android:textColor="@color/colorDarkText"
                     android:layout_marginTop="20dp"/>
 
                 <TextView
-                    android:id="@+id/summary_purchase_status"
+                    android:id="@+id/comp_purchase_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Status: Pending"
@@ -46,14 +46,14 @@
                     android:textColor="#808080"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_summary"
+                    android:id="@+id/comp_summary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"/>
 
                 <TextView
-                    android:id="@+id/summary_tot_qty"
+                    android:id="@+id/comp_tot_qty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Total Qty: 1"
@@ -61,36 +61,15 @@
                     android:gravity="right"
                     android:visibility="gone"/>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/comp_tot_due"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="right">
-
-
-                    <TextView
-                        android:id="@+id/purch_item_qty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="3 Items, Total: "
-                        android:textColor="@color/colorDarkText"
-                        android:fontFamily="sans-serif"
-                        android:gravity="center|right"/>
-
-
-                    <TextView
-                        android:id="@+id/summary_tot_due"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="P 99.99"
-                        android:textColor="@color/colorDarkText"
-                        android:fontFamily="sans-serif"
-                        android:gravity="center|right"
-                        android:textStyle="bold"
-                        android:textSize="15dp"
-                        android:paddingLeft="5dp"/>
-
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:text="Total Amount paid: 99.99"
+                    android:textColor="@color/colorDarkText"
+                    android:gravity="right"
+                    android:textSize="16dp"
+                    android:layout_marginBottom="10dp"/>
 
 
             </LinearLayout>
@@ -99,31 +78,5 @@
         </androidx.cardview.widget.CardView>
 
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="bottom|center"
-        android:paddingBottom="15dp">
-
-        <Button
-            android:id="@+id/btn_pay_now"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:background="@drawable/custom_login_btn"
-            android:text="Pay now"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhiteBG"
-            android:textSize="18dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"/>
-
-    </LinearLayout>
-
-
-
 
 </LinearLayout>

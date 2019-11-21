@@ -100,10 +100,12 @@ public class PaymentsActivity extends AppCompatActivity {
                                 String purchaserName = purchase.getPurchase_emp_name();
                                 String purchaseStatus = purchase.getPurch_status();
                                 double purchaseDue = purchase.getPurch_total_due();
+                                int purchaseQty = purchase.getPurch_tot_qty();
 
                                 purchaselistdata.setPurchase_emp_name(purchaserName);
                                 purchaselistdata.setPurch_total_due(purchaseDue);
                                 purchaselistdata.setPurch_status(purchaseStatus);
+                                purchaselistdata.setPurch_tot_qty(purchaseQty);
                                 list.add(purchaselistdata);
                             }
 

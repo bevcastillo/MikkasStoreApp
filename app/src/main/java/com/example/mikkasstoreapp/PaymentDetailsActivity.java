@@ -95,9 +95,11 @@ public class PaymentDetailsActivity extends AppCompatActivity implements View.On
             strPurchaserName = bundle.getString("purchaser_name");
             strPurchaserStatus = bundle.getString("purchase_status");
             doublePurchaseDue = bundle.getDouble("purchase_due");
+            intPurchaseQty = bundle.getInt("purchase_qty");
 
             purchaserName.setText(strPurchaserName+"'s Purchase History");
-            purchaseTotalDue.setText("Amount Due: "+doublePurchaseDue);
+            purchaseTotalQty.setText(intPurchaseQty+" items, Total: ");
+            purchaseTotalDue.setText("₱ "+doublePurchaseDue);
             purchaseStatus.setText("Status: "+strPurchaserStatus);
         }
 
@@ -200,7 +202,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements View.On
                                         String purchaseStatus = purchase.getPurch_status();
 
                                         if (purchaseStatus.equals("Pending")){
-                                            //update the status to COMPLETED
+                                            //update the status to from pending to completed
 
                                             databaseReference.child("purchases/"+purchaseKey+"/purch_status").setValue("Completed");
                                             databaseReference.child("purchases/"+purchaseKey+"/purch_payment_date").setValue(paymentDate);

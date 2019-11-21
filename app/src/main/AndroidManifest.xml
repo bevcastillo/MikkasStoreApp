@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CompletedPaymentsActivity"
-            android:label="Completed Payments"></activity>
+        <activity android:name=".ViewCompleteActivity"></activity>
+        <activity
+            android:name=".CompletedPaymentsActivity"
+            android:label="Completed Payments" />
         <activity
             android:name=".PaymentDetailsActivity"
             android:label="Purchase History" />
