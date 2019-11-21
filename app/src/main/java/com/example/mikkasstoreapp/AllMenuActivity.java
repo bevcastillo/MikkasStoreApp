@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AllMenuActivity extends AppCompatActivity implements View.OnClickListener {
 
-    CardView cardViewEmplist, cardViewItemlist, cardViewPurchList;
+    CardView cardViewEmplist, cardViewItemlist, cardViewPurchList, cardViewPayments;
     TextView txtFirstname;
 
     FirebaseDatabase firebaseDatabase;
@@ -33,11 +33,14 @@ public class AllMenuActivity extends AppCompatActivity implements View.OnClickLi
         cardViewEmplist = findViewById(R.id.card_emplist);
         cardViewItemlist = findViewById(R.id.card_items);
         cardViewPurchList = findViewById(R.id.card_purchases);
+        cardViewPayments = findViewById(R.id.card_payments);
+
         txtFirstname = findViewById(R.id.txt_firstname);
 
         cardViewEmplist.setOnClickListener(this);
         cardViewItemlist.setOnClickListener(this);
         cardViewPurchList.setOnClickListener(this);
+        cardViewPayments.setOnClickListener(this);
 
 
         //
@@ -92,6 +95,10 @@ public class AllMenuActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.card_purchases:
                     Intent intent2 = new Intent(AllMenuActivity.this, AllPurchasesActivity.class);
                     startActivity(intent2);
+                break;
+            case R.id.card_payments:
+//                    Intent intent3 = new Intent(AllMenuActivity.this, EmployeePaymentsActivity.class);
+//                    startActivity(intent3);
                 break;
         }
 

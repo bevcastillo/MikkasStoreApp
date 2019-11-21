@@ -1,15 +1,17 @@
 package com.example.mikkasstoreapp.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mikkasstoreapp.EditItemActivity;
 import com.example.mikkasstoreapp.Objects.Itemlistdata;
 import com.example.mikkasstoreapp.R;
 
@@ -32,6 +34,22 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.carditem_list, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
+        viewHolder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String itemName = list.get(viewHolder.getAdapterPosition()).getItem_name();
+                int itemStock = list.get(viewHolder.getAdapterPosition()).getItem_stock();
+                double itemPrice = list.get(viewHolder.getAdapterPosition()).getItem_price();
+
+                Intent intent = new Intent(v.getContext(), EditItemActivity.class);
+                intent.putExtra("item_name", itemName);
+                intent.putExtra("item_stock", itemStock);
+                intent.putExtra("item_price", itemPrice);
+                v.getContext().startActivity(intent);
+
+            }
+        });
+
         return viewHolder;
     }
 
@@ -53,7 +71,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView itemName, itemQty, itemPrice;
-        CardView cardView;
+        LinearLayout layout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,7 +79,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
             itemName = (TextView) itemView.findViewById(R.id.card_item_name);
             itemQty = (TextView) itemView.findViewById(R.id.card_item_qty);
             itemPrice = (TextView) itemView.findViewById(R.id.card_item_price);
-            cardView = (CardView) itemView.findViewById(R.id.card_emplist);
+            layout = (LinearLayout) itemView.findViewById(R.id.layout_items);
         }
     }
 }

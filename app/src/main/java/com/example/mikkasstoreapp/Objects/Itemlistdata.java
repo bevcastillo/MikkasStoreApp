@@ -4,7 +4,7 @@ public class Itemlistdata {
     private String item_name, item_category;
     double item_price, item_subtotal;
     int item_qty, item_stock;
-    String item_purch_date;
+    String item_purch_date, item_emp_purchased;
 
     public String getItem_name() {
         return item_name;
@@ -60,5 +60,13 @@ public class Itemlistdata {
 
     public void setItem_purch_date(String item_purch_date) {
         this.item_purch_date = item_purch_date;
+    }
+
+    public String getItem_emp_purchased() {
+        return item_emp_purchased;
+    }
+
+    public void setItem_emp_purchased(String item_emp_purchased) {
+        this.item_emp_purchased = item_emp_purchased;
     }
 }
