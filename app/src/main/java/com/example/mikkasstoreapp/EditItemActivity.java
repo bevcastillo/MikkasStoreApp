@@ -106,7 +106,7 @@ public class EditItemActivity extends AppCompatActivity implements View.OnClickL
                                 //updating from items node
                                 databaseReference.child("items/"+itemKey+"/item_name").setValue(updateItemName.getText().toString());
                                 databaseReference.child("items/"+itemKey+"/item_price").setValue(Double.valueOf(updateItemPrice.getText().toString()));
-                                databaseReference.child("items/"+itemKey+"/item_price").setValue(Integer.valueOf(updateItemStock.getText().toString()));
+                                databaseReference.child("items/"+itemKey+"/item_stock").setValue(Integer.valueOf(updateItemStock.getText().toString()));
 
                             }
                         }

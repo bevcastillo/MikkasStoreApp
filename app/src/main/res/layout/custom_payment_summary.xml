@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/summary_purchased_item_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="12/12/2019"
+                android:textColor="#808080"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:id="@+id/summary_purchaser_item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nescafe"
+                android:textColor="@color/colorDarkText"
+                android:textSize="18dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/summary_item_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="5 X 1.00"
+                android:textColor="#808080"
+                android:fontFamily="sans-serif"
+                android:gravity="right"/>
+
+            <TextView
+                android:id="@+id/summary_item_subtotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="5.00"
+                android:textColor="@color/colorDarkText"
+                android:textSize="18dp"
+                android:gravity="right"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        style="@style/Divider"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+</LinearLayout>

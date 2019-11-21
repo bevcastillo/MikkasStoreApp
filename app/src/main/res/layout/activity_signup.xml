@@ -70,6 +70,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:layout_marginTop="15dp"
+        android:inputType="textPassword"
         android:textColorHint="@color/colorWhiteBG"/>
 
     <Button

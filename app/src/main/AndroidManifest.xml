@@ -9,7 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditItemActivity"></activity>
+        <activity android:name=".CompletedPaymentsActivity"
+            android:label="Completed Payments"></activity>
+        <activity
+            android:name=".PaymentDetailsActivity"
+            android:label="Purchase History" />
+        <activity
+            android:name=".PaymentsActivity"
+            android:label="Pending Payments" />
+        <activity android:name=".EditItemActivity" />
         <activity
             android:name=".AllPurchasesActivity"
             android:label="All Purchase" />
@@ -25,7 +33,7 @@
             android:label="All Employees" />
         <activity
             android:name=".AllMenuActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:label="Menu" />
         <activity
             android:name=".SignupActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

@@ -135,43 +135,18 @@ public class AllPurchasesActivity extends AppCompatActivity {
                                         cartItems.add(cartItem);
                                         items.add(itemsObj);
 //
-
                                         AllPurchasedItemsAdapter adapter = new AllPurchasedItemsAdapter(getApplicationContext(), items);
                                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                                         recyclerViewPurchlist.setLayoutManager(layoutManager);
                                         recyclerViewPurchlist.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
                                         recyclerViewPurchlist.setItemAnimator(new DefaultItemAnimator());
                                         recyclerViewPurchlist.setAdapter(adapter);
+                                        adapter.notifyDataSetChanged();
 
                                     }else {
                                         Toast.makeText(AllPurchasesActivity.this, "does not contain anything", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-
-//                            databaseReference.child("/purchases/"+purchaseKey+"/employee_cart")
-//                                    .addValueEventListener(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                            for (DataSnapshot dataSnapshot2: dataSnapshot.getChildren()){
-//                                                String cartKey = dataSnapshot2.getKey();
-//                                                EmployeeCart employeeCart = dataSnapshot2.getValue(EmployeeCart.class);
-//
-//                                                Gson gson = new Gson();
-//
-//                                                for (Map.Entry<String, Object> entry: purchase.getEmployee_cart().entrySet()){
-//
-//                                                }
-//
-//                                            }
-//                                        }
-//
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                                        }
-//                                    });
-
-
                         }
                     }
 
@@ -180,76 +155,6 @@ public class AllPurchasesActivity extends AppCompatActivity {
 
                     }
                 });
-
-//        databaseReference.orderByChild("/purchases")
-//                .addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.exists()){
-//                            for (DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
-//                                String purchaseKey = dataSnapshot1.getKey();
-//
-//                                Toast.makeText(AllPurchasesActivity.this, purchaseKey+" is the key", Toast.LENGTH_SHORT).show();
-//
-//                                databaseReference.child("purchases/"+purchaseKey+"/employee_cart")
-//                                        .addValueEventListener(new ValueEventListener() {
-//                                            @Override
-//                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                                                if (dataSnapshot.exists()){
-//                                                    for (DataSnapshot dataSnapshot11: dataSnapshot.getChildren()){
-//                                                       String key = dataSnapshot11.getKey();
-//
-//                                                        Toast.makeText(AllPurchasesActivity.this, key+" is the key", Toast.LENGTH_SHORT).show();
-//                                                    }
-//                                                }else {
-//                                                    Toast.makeText(AllPurchasesActivity.this, "does not exist at second", Toast.LENGTH_SHORT).show();
-//                                                }
-//                                            }
-//
-//                                            @Override
-//                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                                            }
-//                                        });
-//
-////                                Purchase purchase = dataSnapshot1.getValue(Purchase.class);
-////                                Gson gson = new Gson();
-//
-////                                for (Map.Entry<String, Object> entry: purchase.getEmployee_cart().entrySet()){
-////                                    Toast.makeText(AllPurchasesActivity.this, entry.getValue().toString()+" is the value", Toast.LENGTH_SHORT).show();
-//////                                    if (entry.getValue().toString().contains("items")){
-//////                                        String json = gson.toJson(entry.getValue());
-//////                                        String mJsonString = json;
-//////                                        JsonParser parser = new JsonParser();
-//////                                        JsonElement mJson = parser.parse(mJsonString);
-//////
-//////                                        JsonObject jsonObject = gson.fromJson(mJson, JsonObject.class);
-//////                                        JsonElement itemJson = jsonObject.get("items");
-//////                                        Items itemsObj = gson.fromJson(itemJson, Items.class);
-//////
-//////                                        employeeCart.setItems(itemsObj);
-//////                                        employeeCarts.add(employeeCart);
-//////                                        items.add(itemsObj);
-//////
-//////                                        AllPurchasedItemsAdapter adapter = new AllPurchasedItemsAdapter(getApplicationContext(), items);
-//////                                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//////                                        recyclerViewPurchlist.setLayoutManager(layoutManager);
-//////                                        recyclerViewPurchlist.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-//////                                        recyclerViewPurchlist.setItemAnimator(new DefaultItemAnimator());
-//////                                        recyclerViewPurchlist.setAdapter(adapter);
-//////                                    }
-////                                }
-//                            }
-//                        }else {
-//                            Toast.makeText(AllPurchasesActivity.this, "does not exist at first", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
 
     }
 
@@ -398,19 +303,30 @@ public class AllPurchasesActivity extends AppCompatActivity {
                                                                 final EmployeeCart employeeCart = new EmployeeCart();
                                                                 employeeCart.setItems(items);
 
-                                                                cartMap.put(EmployeeCartId, items);
+                                                                cartMap.put(EmployeeCartId, employeeCart);
+
+                                                                //
+                                                                double newTotalDue = totalPurchaseDue + subtotal;
+                                                                int newTotalQty = totalPurchaseQty + itemQty;
 
                                                                 //
                                                                 final Purchase purchase = new Purchase();
                                                                 purchase.setPurchase_emp_name(selectedEmployee);
                                                                 purchase.setPurch_status("Pending");
                                                                 purchase.setEmployee_cart(cartMap);
+                                                                purchase.setPurch_total_due(newTotalDue);
+                                                                purchase.setPurch_tot_qty(newTotalQty);
+
 
                                                                 if (purchaseStatus.equals("Pending")) {
-                                                                    if (itemStock > itemQty) { //let's check if the stock is greater than the quantity purchased
+                                                                    if (itemStock >= itemQty) { //let's check if the stock is greater than the quantity purchased
+
                                                                         databaseReference.child("items/" + itemKey).child("item_stock").setValue(newItemStock); //deduct the stock count
 
-                                                                        databaseReference.child("purchases/" + purchaseKey).child("/employee_cart").updateChildren(cartMap); //save to firebase
+                                                                        databaseReference.child("purchases/"+purchaseKey).child("purch_total_due").setValue(totalPurchaseDue + subtotal);
+                                                                        databaseReference.child("purchases/"+purchaseKey).child("purch_total_qty").setValue(totalPurchaseQty + itemQty);
+
+                                                                        databaseReference.child("purchases/" + purchaseKey).child("/employee_cart").updateChildren(cartMap);
                                                                         cartMap.clear();
                                                                         Toast.makeText(AllPurchasesActivity.this, "Purchase has been saved.", Toast.LENGTH_SHORT).show();
 
@@ -419,10 +335,7 @@ public class AllPurchasesActivity extends AppCompatActivity {
                                                                     }
                                                                 } else { //status is completed and we will need to create another purchase
                                                                     if (itemStock >= itemQty) { //let's check if the stock is greater than the quantity purchased
-                                                                        databaseReference.child("items/" + itemKey).child("item_stock").setValue(newItemStock); //deduct the stock count
-
-
-                                                                        databaseReference.child("purchases").push().child("purch_tot_qty").setValue("");
+                                                                        databaseReference.child("items/"+itemKey).child("item_stock").setValue(newItemStock); //deduct the stock count
                                                                         databaseReference.child("purchases").push().setValue(purchase); //save to firebase
                                                                         cartMap.clear();
                                                                         Toast.makeText(AllPurchasesActivity.this, "Purchase has been saved.", Toast.LENGTH_SHORT).show();

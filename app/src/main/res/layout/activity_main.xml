@@ -48,6 +48,7 @@
         android:paddingBottom="15dp"
         android:background="@drawable/custom_edit_text"
         android:hint="Password"
+        android:inputType="textPassword"
         android:layout_marginTop="15dp"/>
 
     <TextView

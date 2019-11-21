@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class AllMenuActivity extends AppCompatActivity implements View.OnClickListener {
+public class AllMenuActivity extends AppCompatActivity implements View.OnClickListener{
 
     CardView cardViewEmplist, cardViewItemlist, cardViewPurchList, cardViewPayments;
     TextView txtFirstname;
@@ -97,9 +97,10 @@ public class AllMenuActivity extends AppCompatActivity implements View.OnClickLi
                     startActivity(intent2);
                 break;
             case R.id.card_payments:
-//                    Intent intent3 = new Intent(AllMenuActivity.this, EmployeePaymentsActivity.class);
-//                    startActivity(intent3);
+                Intent intent3 = new Intent(AllMenuActivity.this, PaymentsActivity.class);
+                startActivity(intent3);
                 break;
+
         }
 
     }
