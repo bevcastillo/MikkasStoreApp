@@ -8,6 +8,7 @@
         <item>Candy</item>
         <item>Breakfast Beverage</item>
         <item>Noodles</item>
+        <item>Others</item>
     </string-array>
 
     <string-array name="payment_status">

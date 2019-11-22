@@ -3,6 +3,7 @@ package com.example.mikkasstoreapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,8 @@ public class ItemlistActivity extends AppCompatActivity {
 
     List<Itemlistdata> list;
 
+    TextView noData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,7 @@ public class ItemlistActivity extends AppCompatActivity {
 
         fab_additem = findViewById(R.id.fab_add_items);
         recyclerViewItemList = findViewById(R.id.recycler_itemlist);
+        noData = findViewById(R.id.items_no_data);
 
         fab_additem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +89,12 @@ public class ItemlistActivity extends AppCompatActivity {
                             recyclerViewItemList.setItemAnimator(new DefaultItemAnimator());
                             recyclerViewItemList.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
+
+                            if (list.isEmpty()){
+                                noData.setVisibility(View.VISIBLE);
+                            }else {
+                                noData.setVisibility(View.GONE);
+                            }
                     }
 
                     @Override

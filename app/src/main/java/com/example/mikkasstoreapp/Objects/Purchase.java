@@ -6,7 +6,7 @@ public class Purchase {
 
     Items items;
     int purch_id, purch_tot_qty;
-    String purch_payment_date, purch_status, purchase_emp_name;
+    String purch_payment_date, purch_status, purchase_emp_name, purchase_key;
     double purch_total_due;
 
     Map<String, Object> employee_cart;
@@ -89,7 +89,15 @@ public class Purchase {
         this.employee_cart = employee_cart;
     }
 
-//
+    public String getPurchase_key() {
+        return purchase_key;
+    }
+
+    public void setPurchase_key(String purchase_key) {
+        this.purchase_key = purchase_key;
+    }
+
+    //
 //    public Map<String, Object> getEmployee_purchases() {
 //        return employee_purchases;
 //    }

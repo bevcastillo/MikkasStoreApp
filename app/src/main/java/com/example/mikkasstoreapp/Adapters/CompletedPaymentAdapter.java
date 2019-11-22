@@ -41,11 +41,15 @@ public class CompletedPaymentAdapter extends RecyclerView.Adapter<CompletedPayme
                 String purchaserName = list.get(viewHolder.getAdapterPosition()).getPurchase_emp_name();
                 String purchaseStatus = list.get(viewHolder.getAdapterPosition()).getPurch_status();
                 double purchaseDue = list.get(viewHolder.getAdapterPosition()).getPurch_total_due();
+                int purchaseQty = list.get(viewHolder.getAdapterPosition()).getPurch_tot_qty();
+                String paymentDate = list.get(viewHolder.getAdapterPosition()).getPurch_payment_date();
 
                 Intent intent = new Intent(v.getContext(), ViewCompleteActivity.class);
                 intent.putExtra("employee_name", purchaserName);
                 intent.putExtra("status", purchaseStatus);
                 intent.putExtra("due", purchaseDue);
+                intent.putExtra("qty", purchaseQty);
+                intent.putExtra("date", paymentDate);
                 v.getContext().startActivity(intent);
             }
         });

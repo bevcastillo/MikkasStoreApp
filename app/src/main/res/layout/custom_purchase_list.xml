@@ -59,7 +59,7 @@
                 android:text="Purchased Item"
                 android:textColor="@color/colorDarkText"
                 android:fontFamily="sans-serif"
-                android:textSize="18dp"/>
+                android:textSize="15dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,7 +84,8 @@
                     android:textColor="#808080"
                     android:fontFamily="sans-serif"
                     android:paddingLeft="5dp"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 

@@ -5,7 +5,7 @@ import java.util.Map;
 public class Purchaselistdata {
     Items items;
     int purch_id, purch_tot_qty;
-    String purch_payment_date, purch_status, purchase_emp_name;
+    String purch_payment_date, purch_status, purchase_emp_name, purchase_key;
     double purch_total_due;
 
     Map<String, Object> employee_cart;
@@ -60,6 +60,14 @@ public class Purchaselistdata {
 
     public double getPurch_total_due() {
         return purch_total_due;
+    }
+
+    public String getPurchase_key() {
+        return purchase_key;
+    }
+
+    public void setPurchase_key(String purchase_key) {
+        this.purchase_key = purchase_key;
     }
 
     public void setPurch_total_due(double purch_total_due) {

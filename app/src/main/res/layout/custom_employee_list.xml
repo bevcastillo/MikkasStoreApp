@@ -39,7 +39,8 @@
             android:textColor="@color/colorDarkText"
             android:gravity="right"
             android:fontFamily="sans-serif"
-            android:textSize="18dp"/>
+            android:textSize="18dp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +30,7 @@ public class PaymentsActivity extends AppCompatActivity {
     RecyclerView paymentsListRecycler;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    TextView noData;
 
     List<Purchaselistdata> list;
 
@@ -37,6 +40,7 @@ public class PaymentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payments);
 
         paymentsListRecycler = (RecyclerView) findViewById(R.id.recycler_paymentlist);
+        noData = (TextView) findViewById(R.id.payments_no_data);
 
         //
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -116,6 +120,12 @@ public class PaymentsActivity extends AppCompatActivity {
                             paymentsListRecycler.setItemAnimator(new DefaultItemAnimator());
                             paymentsListRecycler.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
+
+                            if (list.isEmpty()){
+                                noData.setVisibility(View.VISIBLE);
+                            }else {
+                                noData.setVisibility(View.GONE);
+                            }
 
                         }else {
 

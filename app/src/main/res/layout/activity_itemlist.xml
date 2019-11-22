@@ -11,6 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/items_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No data found"
+                android:textColor="#808080"
+                android:gravity="center"
+                android:textSize="18dp"/>
+
+        </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_itemlist"
         android:layout_width="match_parent"

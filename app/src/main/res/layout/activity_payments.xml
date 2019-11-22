@@ -8,10 +8,33 @@
     tools:context=".PaymentsActivity"
     android:background="@color/colorWhiteBG">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_paymentlist"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"/>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/payments_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No data found"
+                android:textColor="#808080"
+                android:gravity="center"
+                android:textSize="18dp"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_paymentlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"/>
+
+    </FrameLayout>
 
 </LinearLayout>

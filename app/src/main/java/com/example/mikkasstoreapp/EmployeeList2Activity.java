@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class EmployeeList2Activity extends AppCompatActivity implements View.OnC
     RecyclerView recyclerEmpList;
     FloatingActionButton fab_add;
     String employeeId;
+    TextView noData;
 
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
@@ -46,6 +48,7 @@ public class EmployeeList2Activity extends AppCompatActivity implements View.OnC
 
         recyclerEmpList = findViewById(R.id.recyclerview_emplist);
         fab_add = findViewById(R.id.fab_add_emp);
+        noData = findViewById(R.id.employee_no_data);
 
         fab_add.setOnClickListener(this);
 
@@ -82,6 +85,12 @@ public class EmployeeList2Activity extends AppCompatActivity implements View.OnC
                         recyclerEmpList.setItemAnimator(new DefaultItemAnimator());
                         recyclerEmpList.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
+
+                        if (list.isEmpty()){
+                            noData.setVisibility(View.VISIBLE);
+                        }else {
+                            noData.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override

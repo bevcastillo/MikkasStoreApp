@@ -1,5 +1,6 @@
 package com.example.mikkasstoreapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -19,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AllMenuActivity extends AppCompatActivity implements View.OnClickListener{
 
-    CardView cardViewEmplist, cardViewItemlist, cardViewPurchList, cardViewPayments;
+    CardView cardViewEmplist, cardViewItemlist, cardViewPurchList, cardViewPayments, cardViewLogout;
     TextView txtFirstname;
 
     FirebaseDatabase firebaseDatabase;
@@ -34,6 +36,8 @@ public class AllMenuActivity extends AppCompatActivity implements View.OnClickLi
         cardViewItemlist = findViewById(R.id.card_items);
         cardViewPurchList = findViewById(R.id.card_purchases);
         cardViewPayments = findViewById(R.id.card_payments);
+        cardViewLogout = findViewById(R.id.card_logout);
+
 
         txtFirstname = findViewById(R.id.txt_firstname);
 
@@ -41,7 +45,7 @@ public class AllMenuActivity extends AppCompatActivity implements View.OnClickLi
         cardViewItemlist.setOnClickListener(this);
         cardViewPurchList.setOnClickListener(this);
         cardViewPayments.setOnClickListener(this);
-
+        cardViewLogout.setOnClickListener(this);
 
         //
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -100,8 +104,42 @@ public class AllMenuActivity extends AppCompatActivity implements View.OnClickLi
                 Intent intent3 = new Intent(AllMenuActivity.this, PaymentsActivity.class);
                 startActivity(intent3);
                 break;
+            case R.id.card_logout:
+                user_logout();
+                break;
 
         }
 
+    }
+
+    private void user_logout() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to logout?");
+
+        builder.setPositiveButton("LOGOUT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+//                SharedPreferences userPref = getApplicationContext().getSharedPreferences("UserPref", MODE_PRIVATE);
+//                final String username = (userPref.getString("user_username",""));
+
+                SharedPreferences userPref = getApplicationContext().getSharedPreferences("UserPref", MODE_PRIVATE);
+                final SharedPreferences.Editor editor = userPref.edit();
+
+                editor.clear();
+                editor.commit();
+                Intent intent = new Intent(AllMenuActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.show();
     }
 }

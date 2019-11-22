@@ -38,12 +38,21 @@
                     android:layout_marginTop="20dp"/>
 
                 <TextView
+                    android:id="@+id/comp_payment_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Paid on: 12/12/2019"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#808080"/>
+
+                <TextView
                     android:id="@+id/comp_purchase_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Status: Pending"
+                    android:text="Status: Completed"
                     android:fontFamily="sans-serif"
                     android:textColor="#808080"/>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/comp_summary"
@@ -61,15 +70,36 @@
                     android:gravity="right"
                     android:visibility="gone"/>
 
-                <TextView
-                    android:id="@+id/comp_tot_due"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Total Amount paid: 99.99"
-                    android:textColor="@color/colorDarkText"
-                    android:gravity="right"
-                    android:textSize="16dp"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="right">
+
+
+                    <TextView
+                        android:id="@+id/comp_item_qty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="3 Items, Total: "
+                        android:textColor="@color/colorDarkText"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center|right"/>
+
+
+                    <TextView
+                        android:id="@+id/comp_tot_due"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="P 99.99"
+                        android:textColor="@color/colorDarkText"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center|right"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        android:paddingLeft="5dp"/>
+
+                </LinearLayout>
 
 
             </LinearLayout>

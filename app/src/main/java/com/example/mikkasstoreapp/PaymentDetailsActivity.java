@@ -68,7 +68,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements View.On
 
         purchaserName = (TextView) findViewById(R.id.summary_purchaser_name);
         purchaseStatus = (TextView) findViewById(R.id.summary_purchase_status);
-        purchaseTotalQty = (TextView) findViewById(R.id.summary_tot_qty);
+        purchaseTotalQty = (TextView) findViewById(R.id.purch_item_qty);
         purchaseTotalDue = (TextView) findViewById(R.id.summary_tot_due);
         summary = (RecyclerView) findViewById(R.id.recycler_summary);
         btnPay = (Button) findViewById(R.id.btn_pay_now);
@@ -95,12 +95,13 @@ public class PaymentDetailsActivity extends AppCompatActivity implements View.On
             strPurchaserName = bundle.getString("purchaser_name");
             strPurchaserStatus = bundle.getString("purchase_status");
             doublePurchaseDue = bundle.getDouble("purchase_due");
-            intPurchaseQty = bundle.getInt("purchase_qty");
+            intPurchaseQty = bundle.getInt("mpurchase_qty");
 
             purchaserName.setText(strPurchaserName+"'s Purchase History");
             purchaseTotalQty.setText(intPurchaseQty+" items, Total: ");
             purchaseTotalDue.setText("₱ "+doublePurchaseDue);
             purchaseStatus.setText("Status: "+strPurchaserStatus);
+
         }
 
         //
@@ -200,10 +201,14 @@ public class PaymentDetailsActivity extends AppCompatActivity implements View.On
                                         Purchase purchase = dataSnapshot1.getValue(Purchase.class);
 
                                         String purchaseStatus = purchase.getPurch_status();
+                                        String purchaserName = purchase.getPurchase_emp_name();
+                                        double totalDue = purchase.getPurch_total_due();
+
+                                        String purchaseId = purchaserName+"completed"+""+paymentDate+""+totalDue; //this is the ID
 
                                         if (purchaseStatus.equals("Pending")){
                                             //update the status to from pending to completed
-
+                                            databaseReference.child("purchases/"+purchaseKey+"/purchase_key").setValue(purchaseId);
                                             databaseReference.child("purchases/"+purchaseKey+"/purch_status").setValue("Completed");
                                             databaseReference.child("purchases/"+purchaseKey+"/purch_payment_date").setValue(paymentDate);
                                         }else {

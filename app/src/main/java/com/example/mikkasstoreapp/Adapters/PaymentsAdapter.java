@@ -46,7 +46,7 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ViewHo
                 intent.putExtra("purchaser_name", purchaserName);
                 intent.putExtra("purchase_status", purchaseStatus);
                 intent.putExtra("purchase_due", purchaseDue);
-                intent.putExtra("purchase_qty", purchaseQty);
+                intent.putExtra("mpurchase_qty", purchaseQty);
                 v.getContext().startActivity(intent);
             }
         });

@@ -60,7 +60,7 @@
                 android:layout_height="150dp"
                 android:layout_weight="1"
                 android:layout_marginRight="10dp"
-                card_view:cardCornerRadius="4dp">
+                card_view:cardCornerRadius="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                 android:layout_height="150dp"
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"
-                card_view:cardCornerRadius="4dp">
+                card_view:cardCornerRadius="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -140,7 +140,7 @@
                 android:layout_height="150dp"
                 android:layout_weight="1"
                 android:layout_marginRight="10dp"
-                card_view:cardCornerRadius="4dp">
+                card_view:cardCornerRadius="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -204,6 +204,30 @@
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_logout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Log out"
+                    android:gravity="center"
+                    android:textColor="@color/colorDarkText"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 

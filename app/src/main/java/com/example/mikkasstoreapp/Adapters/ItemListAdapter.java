@@ -58,7 +58,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         Itemlistdata data = list.get(position);
 
         holder.itemName.setText(data.getItem_name());
-        holder.itemQty.setText("Qty: "+data.getItem_stock());
+        holder.itemQty.setText("Stock: "+data.getItem_stock());
         holder.itemPrice.setText(""+data.getItem_price());
 
     }

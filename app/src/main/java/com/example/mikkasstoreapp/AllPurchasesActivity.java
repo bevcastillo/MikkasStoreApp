@@ -47,7 +47,7 @@ public class AllPurchasesActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewPurchlist;
     FloatingActionButton fab_addpurch;
-    TextView txtEmpName, txtItemName, txtPurchDate, txtItemQty;
+    TextView txtEmpName, txtItemName, txtPurchDate, txtItemQty, noData;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -79,6 +79,7 @@ public class AllPurchasesActivity extends AppCompatActivity {
         txtPurchDate = (TextView) findViewById(R.id.purch_date);
         txtItemName = (TextView) findViewById(R.id.purch_item_name);
         txtItemQty = (TextView) findViewById(R.id.purch_item_details);
+        noData = (TextView) findViewById(R.id.purch_no_data);
 
         //
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -143,8 +144,16 @@ public class AllPurchasesActivity extends AppCompatActivity {
                                         recyclerViewPurchlist.setAdapter(adapter);
                                         adapter.notifyDataSetChanged();
 
+                                        if (items.isEmpty()){
+                                            noData.setVisibility(View.VISIBLE);
+                                        }else {
+                                            noData.setVisibility(View.GONE);
+                                        }
+
                                     }else {
                                         Toast.makeText(AllPurchasesActivity.this, "does not contain anything", Toast.LENGTH_SHORT).show();
+
+
                                     }
                                 }
                         }
@@ -192,14 +201,17 @@ public class AllPurchasesActivity extends AppCompatActivity {
             }
         });
 
-        //displaying the item names
+//        displaying the item names
         databaseReference.child("/items")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot dataSnapshot2: dataSnapshot.getChildren()){
                             Items items = dataSnapshot2.getValue(Items.class);
-                            itemlist.add(items.getItem_name());
+                            int stock = items.getItem_stock();
+                            if (stock>0){
+                                itemlist.add(items.getItem_name());
+                            }
                         }
                         itemlist.add("Create Items");
                         ArrayAdapter<String> spinnerItemArrAdapter = new ArrayAdapter<String>(AllPurchasesActivity.this, R.layout.spinner_item_name, itemlist);
@@ -212,8 +224,6 @@ public class AllPurchasesActivity extends AppCompatActivity {
 
                     }
                 });
-
-
 
         spinnerEmpName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -271,6 +281,10 @@ public class AllPurchasesActivity extends AppCompatActivity {
                                         final String purchaseKey = dataSnapshot1.getKey();
                                         Purchase purchase1 = dataSnapshot1.getValue(Purchase.class);
                                         final String purchaseStatus = purchase1.getPurch_status();
+                                        final String purchaseId = purchase1.getPurchase_key();
+                                        final String empName = purchase1.getPurchase_emp_name();
+                                        final String empPayDate = purchase1.getPurch_payment_date();
+                                        final double purchaseDue = purchase1.getPurch_total_due();
                                         totalPurchaseQty = purchase1.getPurch_tot_qty(); //default qty
                                         totalPurchaseDue = purchase1.getPurch_total_due(); //default total due
 
@@ -288,7 +302,11 @@ public class AllPurchasesActivity extends AppCompatActivity {
                                                                 int itemStock = items1.getItem_stock();
 
                                                                 int itemQty = Integer.parseInt(editTextItemQty.getText().toString());
-                                                                double subtotal = itemPrice * itemQty;
+
+                                                                String strSubtotal = String.format("%.2f", itemPrice * itemQty);
+                                                                double subtotal = Double.parseDouble(strSubtotal);
+
+//                                                                double subtotal = itemPrice * itemQty;
                                                                 int newItemStock = itemStock - itemQty;
 
 
@@ -306,8 +324,12 @@ public class AllPurchasesActivity extends AppCompatActivity {
                                                                 cartMap.put(EmployeeCartId, employeeCart);
 
                                                                 //
-                                                                double newTotalDue = totalPurchaseDue + subtotal;
+//                                                                double newTotalDue = totalPurchaseDue + subtotal;
                                                                 int newTotalQty = totalPurchaseQty + itemQty;
+
+
+                                                                String strNewDue = String.format("%.2f", totalPurchaseDue + subtotal);
+                                                                double newTotalDue = Double.parseDouble(strNewDue);
 
                                                                 //
                                                                 final Purchase purchase = new Purchase();
@@ -317,14 +339,32 @@ public class AllPurchasesActivity extends AppCompatActivity {
                                                                 purchase.setPurch_total_due(newTotalDue);
                                                                 purchase.setPurch_tot_qty(newTotalQty);
 
+                                                                String strTotalDue = String.format("%.2f", totalPurchaseDue + subtotal);
+                                                                double totalDue = Double.parseDouble(strTotalDue);
 
-                                                                if (purchaseStatus.equals("Pending")) {
+                                                                String uniqueId = empName+"completed"+""+empPayDate+""+purchaseDue;
+
+
+
+
+                                                                if (purchaseId.equals(uniqueId)){ //status is completed and we will need to create another purchase
                                                                     if (itemStock >= itemQty) { //let's check if the stock is greater than the quantity purchased
+                                                                        databaseReference.child("items/"+itemKey).child("item_stock").setValue(newItemStock); //deduct the stock count
+                                                                        databaseReference.child("purchases").push().setValue(purchase); //save to firebase
+                                                                        cartMap.clear();
+
+                                                                        Toast.makeText(AllPurchasesActivity.this, "Purchase has been saved.", Toast.LENGTH_SHORT).show();
+
+                                                                    } else {
+                                                                        Toast.makeText(AllPurchasesActivity.this, "There are only " + itemStock + " left!", Toast.LENGTH_SHORT).show();
+                                                                    } //end else
+                                                                }else {
+                                                                    if (itemStock >= itemQty) {
 
                                                                         databaseReference.child("items/" + itemKey).child("item_stock").setValue(newItemStock); //deduct the stock count
 
-                                                                        databaseReference.child("purchases/"+purchaseKey).child("purch_total_due").setValue(totalPurchaseDue + subtotal);
-                                                                        databaseReference.child("purchases/"+purchaseKey).child("purch_total_qty").setValue(totalPurchaseQty + itemQty);
+                                                                        databaseReference.child("purchases/"+purchaseKey).child("purch_total_due").setValue(totalDue);
+                                                                        databaseReference.child("purchases/"+purchaseKey).child("purch_tot_qty").setValue(totalPurchaseQty + itemQty);
 
                                                                         databaseReference.child("purchases/" + purchaseKey).child("/employee_cart").updateChildren(cartMap);
                                                                         cartMap.clear();
@@ -333,17 +373,8 @@ public class AllPurchasesActivity extends AppCompatActivity {
                                                                     } else {
                                                                         Toast.makeText(AllPurchasesActivity.this, "There are only " + itemStock + " left!", Toast.LENGTH_SHORT).show();
                                                                     }
-                                                                } else { //status is completed and we will need to create another purchase
-                                                                    if (itemStock >= itemQty) { //let's check if the stock is greater than the quantity purchased
-                                                                        databaseReference.child("items/"+itemKey).child("item_stock").setValue(newItemStock); //deduct the stock count
-                                                                        databaseReference.child("purchases").push().setValue(purchase); //save to firebase
-                                                                        cartMap.clear();
-                                                                        Toast.makeText(AllPurchasesActivity.this, "Purchase has been saved.", Toast.LENGTH_SHORT).show();
+                                                                }
 
-                                                                    } else {
-                                                                        Toast.makeText(AllPurchasesActivity.this, "There are only " + itemStock + " left!", Toast.LENGTH_SHORT).show();
-                                                                    } //end else
-                                                                } //end else
 
                                                             }
                                                         }
@@ -370,8 +401,11 @@ public class AllPurchasesActivity extends AppCompatActivity {
                                                             int itemStock = items1.getItem_stock();
 
                                                             int itemQty = Integer.parseInt(editTextItemQty.getText().toString());
-                                                            double subtotal = itemPrice*itemQty;
+//                                                            double subtotal = itemPrice*itemQty;
                                                             int newItemStock = itemStock - itemQty;
+
+                                                            String strSubtotal = String.format("%.2f", itemPrice*itemQty);
+                                                            double subtotal = Double.parseDouble(strSubtotal);
 
                                                             final Items items = new Items();
                                                             items.setItem_name(selectedItem);
@@ -388,7 +422,10 @@ public class AllPurchasesActivity extends AppCompatActivity {
 
                                                             //we update the purchase quantity and total due of the employee purchase
                                                             int newPurchaseQty = totalPurchaseQty + itemQty;
-                                                            double newPurchaseDue = totalPurchaseDue + subtotal;
+//                                                            double newPurchaseDue = totalPurchaseDue + subtotal;
+
+                                                            String strPurchaseDue = String.format("%.2f", totalPurchaseDue + subtotal);
+                                                            double newPurchaseDue = Double.parseDouble(strPurchaseDue);
 
                                                             //
                                                             final Purchase purchase = new Purchase();

@@ -1,6 +1,8 @@
 package com.example.mikkasstoreapp;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,7 @@ public class CompletedPaymentsActivity extends AppCompatActivity {
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    TextView noData;
 
     List<Purchaselistdata> list;
 
@@ -35,6 +38,7 @@ public class CompletedPaymentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_completed_payments);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_completed);
+        noData = (TextView) findViewById(R.id.completed_no_data);
 
         //
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -84,6 +88,12 @@ public class CompletedPaymentsActivity extends AppCompatActivity {
                             recyclerView.setItemAnimator(new DefaultItemAnimator());
                             recyclerView.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
+
+                            if (list.isEmpty()){
+                                noData.setVisibility(View.VISIBLE);
+                            }else {
+                                noData.setVisibility(View.GONE);
+                            }
 
                         }else {
 
